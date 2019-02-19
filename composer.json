@@ -1,0 +1,27 @@
+{
+  "name": "geekcom/email",
+  "description": "Email SandBox",
+  "license": "MIT",
+  "keywords": [
+    "email",
+    "php-email"
+  ],
+  "authors": [
+    {
+      "name": "geekcom",
+      "email": "danielrodrigues-ti@hotmail.com",
+    }
+  ],
+  "require": {
+    "phpmailer/phpmailer": "~6.0",
+    "vlucas/phpdotenv": "^3.3"
+  },
+  "require-dev": {
+    "symfony/var-dumper" : "3.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "EmailSandbox\\": "app/"
+    }
+  }
+}
