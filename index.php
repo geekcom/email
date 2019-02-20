@@ -3,7 +3,6 @@
 require 'vendor/autoload.php';
 
 use EmailSandbox\Email;
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
