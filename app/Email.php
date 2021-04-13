@@ -28,11 +28,8 @@ class Email
 
             $this->PHPMailer->send();
 
-            dump($this->PHPMailer);
-            dump('Message has been sent');
-
         } catch (Exception $e) {
-            dump('Message could not be sent. Mailer Error: ', $this->PHPMailer->ErrorInfo);
+            throw new $this->PHPMailer->ErrorInfo;
         }
     }
 
@@ -63,11 +60,19 @@ class Email
         $this->PHPMailer->isHTML(true);
         $this->PHPMailer->Subject = $params['subject'];
         $this->PHPMailer->Body = $params['body'];
-        $this->PHPMailer->AltBody = $params['alt_body'];
+
+        if (isset($params['alt_body'])) {
+            $this->PHPMailer->AltBody = $params['alt_body'];
+        }
     }
 
     private function configureAttachment(array $params)
     {
-        $this->PHPMailer->addAttachment($params['attachment_path'], $params['attachment_name']);
+        if (isset($params['attachment_path']) && isset($params['attachment_name'])) {
+            $this->PHPMailer->addAttachment(
+                $params['attachment_path'],
+                $params['attachment_name']
+            );
+        }
     }
 }
