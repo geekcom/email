@@ -7,18 +7,20 @@ namespace EmailSandbox;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-class Email
+final class Email
 {
-    private $PHPMailer;
-    private $PHPMailerException;
+    private PHPMailer $PHPMailer;
 
-    public function __construct(PHPMailer $PHPMailer, Exception $PHPMailerException)
+    public function __construct(PHPMailer $PHPMailer)
     {
         $this->PHPMailer = $PHPMailer;
-        $this->PHPMailerException = $PHPMailerException;
     }
 
-    public function sendEmail(array $params)
+    /**
+     * @param array $params
+     * @return void
+     */
+    public function sendEmail(array $params): void
     {
         try {
             $this->configureServerSettings($params);
@@ -27,13 +29,16 @@ class Email
             $this->configureAttachment($params);
 
             $this->PHPMailer->send();
-
-        } catch (Exception $e) {
-            throw new $this->PHPMailer->ErrorInfo;
+        } catch (Exception) {
+            throw new $this->PHPMailer->ErrorInfo();
         }
     }
 
-    private function configureServerSettings(array $params)
+    /**
+     * @param array $params
+     * @return void
+     */
+    private function configureServerSettings(array $params): void
     {
         $this->PHPMailer->SMTPDebug = 2;
         $this->PHPMailer->isSMTP();
@@ -46,7 +51,12 @@ class Email
         $this->PHPMailer->CharSet = $params['charset'];
     }
 
-    private function configureRecipients(array $params)
+    /**
+     * @param array $params
+     * @return void
+     * @throws Exception
+     */
+    private function configureRecipients(array $params): void
     {
         $this->PHPMailer->setFrom($params['email_from_address'], $params['email_from_name']);
         $this->PHPMailer->addAddress($params['recipient_address'], $params['recipient_name']);
@@ -55,7 +65,11 @@ class Email
         $this->PHPMailer->addBCC(null);
     }
 
-    private function configureContent(array $params)
+    /**
+     * @param array $params
+     * @return void
+     */
+    private function configureContent(array $params): void
     {
         $this->PHPMailer->isHTML(true);
         $this->PHPMailer->Subject = $params['subject'];
@@ -66,7 +80,12 @@ class Email
         }
     }
 
-    private function configureAttachment(array $params)
+    /**
+     * @param array $params
+     * @return void
+     * @throws Exception
+     */
+    private function configureAttachment(array $params): void
     {
         if (isset($params['attachment_path']) && isset($params['attachment_name'])) {
             $this->PHPMailer->addAttachment(

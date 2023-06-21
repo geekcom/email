@@ -11,7 +11,7 @@ $dotenv->load();
 
 $PHPMailer = new PHPMailer();
 $PHPMailerException = new Exception();
-$mail = new Email($PHPMailer, $PHPMailerException);
+$mail = new Email($PHPMailer);
 
 $params = [
     'host' => getenv('SMTP_HOST'),
@@ -20,13 +20,13 @@ $params = [
     'secure' => getenv('SMTP_SECURE'),
     'port' => getenv('SMTP_PORT'),
     'charset' => getenv('CHARSET'),
-    'email_from_address' => 'email_from_address',
-    'email_from_name' => 'email_from_name',
-    'recipient_address' => 'recipient_address',
-    'recipient_name' => 'recipient_name',
-    'subject' => 'Here is the subject',
-    'body' => 'This is the HTML message body <b>in bold!</b>',
-    'alt_body' => 'This is the body in plain text for non-HTML mail clients',
+    'email_from_address' => 'danielrodrigues-ti@hotmail.com',
+    'email_from_name' => 'Email pessoal',
+    'recipient_address' => 'daniel.lima@infracommerce.com.br',
+    'recipient_name' => 'Email do trabalho',
+    'subject' => 'Teste de envio de email',
+    'body' => 'Estou enviando este email a partir do meu <b>endereço pessoal</b>',
+    'alt_body' => 'Estou enviando este email a partir do meu endereço pessoal',
     'attachment_path' => null,
     'attachment_name' => null
 ];
